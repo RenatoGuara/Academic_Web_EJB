@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Cadastro de Alunos xhtml</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+
+        <h:form id="frmAluno">
+            <p:panelGrid columns="2" style="horizontal-align:center">
+                <p:outputLabel value="Matricula:" for="matricula"/>
+                <p:inputText id="matricula" value="#{alunoMB.aluno.matricula}" placeholder="Matricula"/>
+                <p:outputLabel for="nome" value="Nome:" for="nome"/>
+                <p:inputText id="nome" value="#{alunoMB.aluno.nome}" placeholder="Nome"/>
+                <p:outputLabel value="Telefone:" for="telefone"/>
+                <p:inputText id="telefone" value="#{alunoMB.aluno.telefone}" placeholder="Telefone"/>
+                <p:outputLabel value="Email:" for="email"/>
+                <p:inputText id="email" value="#{alunoMB.aluno.email}" placeholder="Email"/>
+                <p:outputLabel value="Data Cadastro:" for="dataCadastro"/>
+                <p:calendar value="#{alunoMB.aluno.dataCadastro}" locale="pt_BR" id="dataCadastro" showButtonPanel="true">
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                </p:calendar>
+            </p:panelGrid>
+            <p:panelGrid columns="6">
+                <p:commandButton action="#{alunoMB.incluir(aluno)}" value="Incluir" update="tabela" />
+                <p:commandButton action="#{alunoMB.alterar}" value="alterar" update="tabela" />
+                <p:commandButton action="#{alunoMB.consultar}" value="Consultar" update="tabela, :frmAluno" />
+                <p:commandButton action="#{alunoMB.listar}" value="Listar" update="tabela" />
+                <p:commandButton action="#{alunoMB.excluir}" value="Excluir" update="tabela" />
+                <p:commandButton action="#{alunoMB.limpar}" value="Limpar" update="tabela" />
+
+            </p:panelGrid>
+        </h:form>
+        <p:dataTable id="tabela" var="item" value="#{alunoMB.lista}"
+                     paginator="true" rows="50" emptyMessage="Não há registros na lista"
+                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="10,15,25,50,100">
+            <f:facet name="header">Lista de Alunos</f:facet>
+            <p:column headerText="ID" style="width: 10%;"
+                      sortBy="#{item.matricula}">
+                <h:outputText value="#{item.matricula}" />
+            </p:column>
+            <p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">
+                <h:outputText value="#{item.nome}" />
+            </p:column>
+            <p:column headerText="Telefone" style="width: 25%;"
+                      sortBy="#{item.telefone}">
+                <h:outputText value="#{item.telefone}" />
+            </p:column>
+            <p:column headerText="E-mail" style="width: 25%;"
+                      sortBy="#{item.email}">
+                <h:outputText value="#{item.email}" />
+            </p:column>
+        </p:dataTable>
+    </h:body>
+</html>
